@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="Pbalut.RealTimeHomeController.Client.Views.LightPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Pbalut.RealTimeHomeController.Client.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Light}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Lights" Style="{StaticResource TitleTextBlockStyle}" />
+        <ListView Grid.Row="1" ItemsSource="{Binding RelayDevices}" SelectionMode="None"
+                  ItemContainerStyle="{StaticResource ListViewMenuStyle}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <BitmapIcon Grid.Column="0" UriSource="{Binding Icon}" Foreground="DarkGray"
+                                    VerticalAlignment="Center" Margin="0" Width="50" Height="50" />
+                        <Grid Grid.Column="1">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Description}" />
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </Grid>
+                        <ToggleSwitch Grid.Column="2" OffContent="Light off" OnContent="Light on" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBlock Grid.Row="2" Text="Events" Style="{StaticResource TitleTextBlockStyle}" />
+        <!--<ListView Grid.Row="3">
+
+        </ListView>-->
+        <!--<Button Content="Change state" Click="ButtonBase_OnClick"/>-->
+    </Grid>
+</Page>
