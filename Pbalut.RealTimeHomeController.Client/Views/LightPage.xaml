@@ -35,7 +35,7 @@
                                 <TextBlock Text="{Binding Name}" />
                             </StackPanel>
                         </Grid>
-                        <ToggleSwitch Grid.Column="2" OffContent="Light off" OnContent="Light on" />
+                        <ToggleSwitch Grid.Column="2" OffContent="Light off" OnContent="Light on"  IsOn="{Binding IsOn, Mode=TwoWay}"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

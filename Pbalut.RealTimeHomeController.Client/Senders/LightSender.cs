@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Transports;
 using Pbalut.RealTimeHomeController.Client.Diagnostics;
@@ -28,10 +29,20 @@ namespace Pbalut.RealTimeHomeController.Client.Senders
                 _hubProxy = _hubConnection.CreateHubProxy(EHubMethod.LightChangeState.GetHubName());
                 // LongPollingTransport: See http://www.4sln.com/Articles/creating-a-simple-application-using-universal-apps-with-signalr-and-mobile-servic
                 await _hubConnection.Start(new LongPollingTransport());
+
+                SetMessengerReciver();
             }
             catch (Exception e)
             {
             }
+        }
+
+        private void SetMessengerReciver()
+        {
+            Messenger.Default.Register<NotificationMessage<Light>>(this, async (message) =>
+            {
+                await SendRequestToChangeLightState(message.Content);
+            });
         }
 
         public async Task SendRequestToChangeLightState(Light light)

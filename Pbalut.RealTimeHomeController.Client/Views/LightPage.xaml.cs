@@ -31,18 +31,7 @@ namespace Pbalut.RealTimeHomeController.Client.Views
             //LightEngine.DoBlink += Blinker_DoBlink;
             //LightEngine.Start();
             //await LightListner.Init();
-            //await LightSender.Init();
-        }
-
-        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            await
-                LightSender.SendRequestToChangeLightState(new Light
-                {
-                    State = ELightState.TurnOff,
-                    Type = ELightType.LivingRoomLamp,
-                    User = "piotrek"
-                });
+            await LightSender.Init();
         }
     }
 }

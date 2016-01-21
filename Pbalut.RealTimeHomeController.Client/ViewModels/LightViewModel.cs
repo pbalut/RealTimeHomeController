@@ -21,19 +21,6 @@ namespace Pbalut.RealTimeHomeController.Client.ViewModels
             base(navigationService)
         {
             SetRelayDevices();
-            //GotoPage1Command = new RelayCommand(() => _navigationService.NavigateTo("Page1"));
-        }
-
-        public Uri IconTest
-        {
-            get { return new Uri("ms-appx:///Assets/Icons/Lights/appbar.lamp.png"); }
-            set
-            {
-                if (Set(ref _iconTest, value))
-                {
-                    RaisePropertyChanged(() => IconTest);
-                }
-            }
         }
 
         public ObservableCollection<RelayDevice> RelayDevices
@@ -61,7 +48,8 @@ namespace Pbalut.RealTimeHomeController.Client.ViewModels
                     {
                         Name = light.GetName(),
                         Description = light.GetDescription(),
-                        Icon = IconHelper.GetLightIconUri(light)
+                        Icon = IconHelper.GetLightIconUri(light),
+                        Type = light
                     }).ToList());
         }
     }
