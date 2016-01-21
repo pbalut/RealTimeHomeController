@@ -1,17 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
 using Pbalut.RealTimeHomeController.Shared.Enums;
+using Pbalut.RealTimeHomeController.Shared.Enums.Extensions;
+using Pbalut.RealTimeHomeController.Shared.Enums.Groups;
 using Pbalut.RealTimeHomeController.Shared.Models;
 using Pbalut.RealTimeHomeController.Web.Interfaces;
 
 namespace Pbalut.RealTimeHomeController.Web.Hubs
 {
-    public class LightHub : Hub<ILightHub>
+    public class LightHub : Hub<ILightHub>, IHub
     {
+        public void JoinGroup(EGroup group)
+        {
+            Groups.Add(Context.ConnectionId, group.GetGroupName());
+        }
+
+        public void LeaveGroup(EGroup group)
+        {
+            Groups.Remove(Context.ConnectionId, group.GetGroupName());
+        }
+
         public void ChangeState(string user, string lightState, string lightType)
         {
             try
@@ -22,7 +30,6 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
                     State = EnumUtil.ParseEnum<ELightState>(lightState),
                     Type = EnumUtil.ParseEnum<ELightType>(lightType)
                 };
-                Clients.All.LightChangeState(light);
             }
             catch (Exception ex)
             {

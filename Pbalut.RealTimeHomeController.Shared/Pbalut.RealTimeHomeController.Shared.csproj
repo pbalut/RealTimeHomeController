@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppData\EndPoint.cs" />
+    <Compile Include="Enums\Attributes\GroupAttribute.cs" />
     <Compile Include="Enums\Attributes\HubAttribute.cs" />
     <Compile Include="Enums\Attributes\HubMethodAttribute.cs" />
     <Compile Include="Enums\Attributes\LightTypeAttribute.cs" />
@@ -67,9 +68,11 @@
     <Compile Include="Enums\ELightState.cs" />
     <Compile Include="Enums\ELightType.cs" />
     <Compile Include="Enums\EnumUtil.cs" />
+    <Compile Include="Enums\Extensions\GroupExtension.cs" />
     <Compile Include="Enums\Extensions\HubExtension.cs" />
     <Compile Include="Enums\Extensions\HubMethodExtension.cs" />
     <Compile Include="Enums\Extensions\LightTypeExtension.cs" />
+    <Compile Include="Enums\Groups\EGroup.cs" />
     <Compile Include="Enums\Hubs\EHub.cs" />
     <Compile Include="Enums\Hubs\EHubMethod.cs" />
     <Compile Include="Models\BaseModel.cs" />
