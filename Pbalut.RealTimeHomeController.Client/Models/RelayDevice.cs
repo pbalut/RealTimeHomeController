@@ -27,7 +27,8 @@ namespace Pbalut.RealTimeHomeController.Client.Models
                 {
                     Messenger.Default.Send(new NotificationMessage<Light>(new Light()
                     {
-                        User = AppDataHelper.Get<string>(EAppData.UserName),
+                        //TODO
+                        //User = AppDataHelper.Get<string>(EAppData.UserName),
                         State = _isOn ? ELightState.TurnOn : ELightState.TurnOff,
                         Type = this.Type
                     }, "Select"));

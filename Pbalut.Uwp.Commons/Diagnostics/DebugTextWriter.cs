@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace Pbalut.RealTimeHomeController.Client.Diagnostics
+namespace Pbalut.Uwp.Commons.Diagnostics
 {
     public class DebugTextWriter : TextWriter
     {

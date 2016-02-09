@@ -1,9 +1,9 @@
 ﻿using System;
 using Pbalut.RealTimeHomeController.Shared.Enums;
 
-namespace Pbalut.RealTimeHomeController.Shared.Models
+namespace Pbalut.RealTimeHomeController.Shared.Models.Lights
 {
-    public class LightEventInformation
+    public class LightServerResponse
     {
         public DateTime DateTime { get; set; }
         public string ServerName { get; set; }

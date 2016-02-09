@@ -9,9 +9,13 @@ namespace Pbalut.RealTimeHomeController.Shared.Enums.Hubs
 {
     public enum EHubMethod
     {
+        [HubMethod("JoinGroup", "LightJoinGroup", EHub.Light)]
+        LightJoinGroup,
+        [HubMethod("LeaveGroup", "LightLeaveGroup", EHub.Light)]
+        LightLeaveGroup,
         [HubMethod("ChangeState", "LightChangeState", EHub.Light)]
         LightChangeState,
-        [HubMethod("SendInformation", "LightSendInformation", EHub.Light)]
-        LightSendInformation
+        [HubMethod("InformAboutChangedState", "LightInformAboutChangedState", EHub.Light)]
+        LightInformAboutChangedState
     }
 }

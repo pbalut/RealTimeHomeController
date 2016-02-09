@@ -75,9 +75,11 @@
     <Compile Include="Enums\Groups\EGroup.cs" />
     <Compile Include="Enums\Hubs\EHub.cs" />
     <Compile Include="Enums\Hubs\EHubMethod.cs" />
-    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Light.cs" />
     <Compile Include="Models\LightEventInformation.cs" />
+    <Compile Include="Models\Lights\LightChangeStateError.cs" />
+    <Compile Include="Models\Lights\LightClientRequest.cs" />
+    <Compile Include="Models\Lights\LightServerResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pbalut.RealTimeHomeController.Shared.Models
+namespace Pbalut.RealTimeHomeController.Shared.Models.Lights
 {
-    public class BaseModel
+    public class LightChangeStateError
     {
-        public string User { get; set; }
     }
 }

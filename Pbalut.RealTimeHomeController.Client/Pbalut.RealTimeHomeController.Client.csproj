@@ -97,7 +97,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\NavigationServiceUwp.cs" />
-    <Compile Include="Diagnostics\DebugTextWriter.cs" />
     <Compile Include="Enums\AppData\AppDataEnumExtensions.cs" />
     <Compile Include="Enums\AppData\Attributes\AppDataAttribute.cs" />
     <Compile Include="Enums\AppData\Attributes\AppDataContainerAttribute.cs" />
@@ -109,10 +108,9 @@
     <Compile Include="Exceptions\AppData\NotFoundAppDataKeyException.cs" />
     <Compile Include="Helpers\AppDataHelper.cs" />
     <Compile Include="Helpers\IconHelper.cs" />
+    <Compile Include="HubProxy\LightHubProxy.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
-    <Compile Include="Listeners\LightListener.cs" />
     <Compile Include="Models\RelayDevice.cs" />
-    <Compile Include="Senders\LightSender.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
@@ -194,6 +192,10 @@
     <ProjectReference Include="..\Pbalut.RealTimeHomeController.Shared\Pbalut.RealTimeHomeController.Shared.csproj">
       <Project>{c1afcb2d-f902-4da9-a2f1-523dfd412b52}</Project>
       <Name>Pbalut.RealTimeHomeController.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pbalut.Uwp.Commons\Pbalut.Uwp.Commons.csproj">
+      <Project>{6bba2eae-975c-4a62-8b02-f8399cf5d153}</Project>
+      <Name>Pbalut.Uwp.Commons</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

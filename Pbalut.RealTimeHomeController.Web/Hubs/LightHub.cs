@@ -1,35 +1,31 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
-using Pbalut.RealTimeHomeController.Shared.Enums;
 using Pbalut.RealTimeHomeController.Shared.Enums.Extensions;
 using Pbalut.RealTimeHomeController.Shared.Enums.Groups;
-using Pbalut.RealTimeHomeController.Shared.Models;
+using Pbalut.RealTimeHomeController.Shared.Models.Lights;
 using Pbalut.RealTimeHomeController.Web.Interfaces;
 
 namespace Pbalut.RealTimeHomeController.Web.Hubs
 {
     public class LightHub : Hub<ILightHub>, IHub
     {
-        public void JoinGroup(EGroup group)
+        public async Task JoinGroup(EGroup group)
         {
-            Groups.Add(Context.ConnectionId, group.GetGroupName());
+            await Groups.Add(Context.ConnectionId, group.GetGroupName());
         }
 
-        public void LeaveGroup(EGroup group)
+        public async Task LeaveGroup(EGroup group)
         {
-            Groups.Remove(Context.ConnectionId, group.GetGroupName());
+            await Groups.Remove(Context.ConnectionId, group.GetGroupName());
         }
 
-        public void ChangeState(string user, string lightState, string lightType)
+        public void ChangeState(LightClientRequest requestFromClient)
         {
             try
             {
-                var light = new Light()
-                {
-                    User = user,
-                    State = EnumUtil.ParseEnum<ELightState>(lightState),
-                    Type = EnumUtil.ParseEnum<ELightType>(lightType)
-                };
+                Clients.Group(EGroup.Server.GetGroupName()).LightChangeStateRequestToServer(requestFromClient);
+                Clients.Group(EGroup.Client.GetGroupName()).LightInformAboutChangedState(new LightServerResponse() {ServerName = "d"});
             }
             catch (Exception ex)
             {
@@ -37,11 +33,11 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
             }
         }
 
-        public void ChangeState(Light light)
+        public void InformAboutChangedState(LightServerResponse serverResponse)
         {
             try
             {
-                Clients.All.LightChangeState(light);
+                Clients.Group(EGroup.Client.GetGroupName()).LightInformAboutChangedState(serverResponse);
             }
             catch (Exception ex)
             {
@@ -49,11 +45,11 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
             }
         }
 
-        public void SendInformation(LightEventInformation lightEventInformation)
+        public void InformAboutErrorOccuredWhileChangingState(LightChangeStateError error)
         {
             try
             {
-                Clients.All.LightSendInformation(lightEventInformation);
+                Clients.Group(EGroup.Client.GetGroupName()).LightInformAboutErrorOccuredWhileChangingState(error);
             }
             catch (Exception ex)
             {
