@@ -25,7 +25,7 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
             try
             {
                 Clients.Group(EGroup.Server.GetGroupName()).LightChangeStateRequestToServer(requestFromClient);
-                Clients.Group(EGroup.Client.GetGroupName()).LightInformAboutChangedState(new LightServerResponse() {ServerName = "d"});
+                //Clients.Group(EGroup.Client.GetGroupName()).LightInformAboutChangedState(new LightServerResponse() {ServerName = "d"});
             }
             catch (Exception ex)
             {

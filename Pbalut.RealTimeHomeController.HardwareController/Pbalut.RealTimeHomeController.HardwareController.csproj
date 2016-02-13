@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Engines\LightEngine.cs" />
     <Compile Include="HardwareControllers\RelayController.cs" />
+    <Compile Include="HubProxy\LightHubProxy.cs" />
     <Compile Include="Listeners\LightListener.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -137,6 +138,10 @@
     <ProjectReference Include="..\Pbalut.RealTimeHomeController.Shared\Pbalut.RealTimeHomeController.Shared.csproj">
       <Project>{c1afcb2d-f902-4da9-a2f1-523dfd412b52}</Project>
       <Name>Pbalut.RealTimeHomeController.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pbalut.Uwp.Commons\Pbalut.Uwp.Commons.csproj">
+      <Project>{6bba2eae-975c-4a62-8b02-f8399cf5d153}</Project>
+      <Name>Pbalut.Uwp.Commons</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Pbalut.RealTimeHomeController.Client.HubProxy;
-using Pbalut.RealTimeHomeController.Client.Listeners;
-using Pbalut.RealTimeHomeController.Client.Senders;
 using Pbalut.RealTimeHomeController.Client.ViewModels;
 
 namespace Pbalut.RealTimeHomeController.Client.Views

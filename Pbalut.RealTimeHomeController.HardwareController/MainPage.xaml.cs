@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Threading.Tasks;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Pbalut.RealTimeHomeController.HardwareController.Engines;
 using Pbalut.RealTimeHomeController.HardwareController.HardwareControllers;
+using Pbalut.RealTimeHomeController.HardwareController.HubProxy;
 using Pbalut.RealTimeHomeController.HardwareController.Listeners;
-using Pbalut.RealTimeHomeController.Shared.Enums;
 
 namespace Pbalut.RealTimeHomeController.HardwareController
 {
@@ -39,30 +29,26 @@ namespace Pbalut.RealTimeHomeController.HardwareController
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            LightListner = new LightListener();
-            LightListner.LightDataReceived += (p, q) =>
+            var lightHubProxy = new LightHubProxy();
+            lightHubProxy.LightClientRequest += async (p, q) =>
             {
-                LightEngine.Field = q.State.ToString();
-                var t = 2;
-                //GPIO
-                RelayController.TurnOffLight(ELightType.PeterRoomMainLight);
-                RelayController.TurnOnLight(ELightType.PeterRoomMainLight);
-                //show events
-
-                //send notification
-
+                await LightClientRequestEvent(q);
             };
-            //LightEngine.DoBlink += Blinker_DoBlink;
-            //LightEngine.Start();
-            await LightListner.Init();
+            await lightHubProxy.Start();
         }
 
-        private async void Blinker_DoBlink(object sender, string e)
+        private async Task LightClientRequestEvent(object sender)
         {
-            //lsOperator.Blink(e);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                //    LightEngine.Field = q.State.ToString();
+                //    var t = 2;
+                //    //GPIO
+                //    RelayController.TurnOffLight(ELightType.PeterRoomMainLight);
+                //    RelayController.TurnOnLight(ELightType.PeterRoomMainLight);
+                //    //show events
 
+                //    //send notification
             });
         }
     }

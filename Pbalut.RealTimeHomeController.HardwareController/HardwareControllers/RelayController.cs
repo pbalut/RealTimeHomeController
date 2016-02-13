@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Devices.Gpio;
+﻿using Windows.Devices.Gpio;
 using Pbalut.IoT.Commons;
 using Pbalut.RealTimeHomeController.Shared.Enums;
 using Pbalut.RealTimeHomeController.Shared.Enums.Extensions;
