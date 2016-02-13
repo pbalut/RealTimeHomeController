@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
+using NLog;
 using Pbalut.RealTimeHomeController.Shared.Enums.Extensions;
 using Pbalut.RealTimeHomeController.Shared.Enums.Groups;
 using Pbalut.RealTimeHomeController.Shared.Models.Lights;
@@ -10,6 +11,8 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
 {
     public class LightHub : Hub<ILightHub>, IHub
     {
+        private Logger  Logger => LogManager.GetLogger(GetType().FullName); 
+
         public async Task JoinGroup(EGroup group)
         {
             await Groups.Add(Context.ConnectionId, group.GetGroupName());
