@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pbalut.RealTimeHomeController.Shared.Enums.Attributes;
+﻿using Pbalut.RealTimeHomeController.Shared.Enums.Attributes;
 
 namespace Pbalut.RealTimeHomeController.Shared.Enums.Hubs
 {
@@ -13,9 +8,15 @@ namespace Pbalut.RealTimeHomeController.Shared.Enums.Hubs
         LightJoinGroup,
         [HubMethod("LeaveGroup", "LightLeaveGroup", EHub.Light)]
         LightLeaveGroup,
-        [HubMethod("ChangeState", "LightChangeState", EHub.Light)]
-        LightChangeState,
+
+        [HubMethod("ChangeStateRequestToServer", "LightChangeStateRequestToServer", EHub.Light)]
+        LightChangeStateClientRequest,
+        [HubMethod("ChangeStateServerRequest", "LightChangeStateRequestToHardwareController", EHub.Light)]
+        LightChangeStateServerRequest,
+
         [HubMethod("InformAboutChangedState", "LightInformAboutChangedState", EHub.Light)]
-        LightInformAboutChangedState
+        LightInformAboutChangedState,
+        [HubMethod("InformAboutErrorOccuredWhileChangingState", "LightInformAboutErrorOccuredWhileChangingState", EHub.Light)]
+        LightInformAboutErrorOccuredWhileChangingState
     }
 }

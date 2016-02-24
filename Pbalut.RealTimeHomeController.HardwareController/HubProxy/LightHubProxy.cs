@@ -15,7 +15,7 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HubProxy
 {
     public class LightHubProxy : HubProxyBase
     {
-        internal event EventHandler<LightClientRequest> LightClientRequest;
+        internal event EventHandler<LightServerRequest> RequestToServerEvent;
 
         public LightHubProxy()
             : base(EHub.Light.GetHubName())
@@ -24,9 +24,10 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HubProxy
 
         public async Task Start()
         {
-            await Init(new LongPollingTransport());
-            HubProxy.On<LightClientRequest>(EHubMethod.LightInformAboutChangedState.GetClientName(),
-                clientRequest => { LightClientRequest?.Invoke(this, clientRequest); });
+            //SetListeaners();
+            await Init();
+            HubProxy.On<LightServerRequest>(EHubMethod.LightChangeStateServerRequest.GetClientName(),
+                clientRequest => { RequestToServerEvent?.Invoke(this, clientRequest); });
             await JoinToGroup();
         }
 
@@ -42,6 +43,19 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HubProxy
             {
                 //TODO            
             }
+        }
+
+        private void SetListeaners()
+        {
+            RequestToServerEvent += async (p, q) =>
+            {
+                await AA(q);
+            };
+        }
+
+        private async Task AA(LightServerRequest request)
+        {
+
         }
     }
 }

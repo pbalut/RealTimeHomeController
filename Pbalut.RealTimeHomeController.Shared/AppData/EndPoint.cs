@@ -8,6 +8,6 @@ namespace Pbalut.RealTimeHomeController.Shared.AppData
 {
     public static class EndPoint
     {
-        public static readonly string HubUrl = "http://192.168.1.104:507/";
+        public static readonly string HubUrl = "http://192.168.1.103:507/";
     }
 }

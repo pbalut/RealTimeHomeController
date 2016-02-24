@@ -4,8 +4,8 @@
   <mp:PhoneIdentity PhoneProductId="26858404-aa56-4a52-ad11-4dc7ef7eceb2" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>SplitViewApp1</DisplayName>
-    <PublisherDisplayName>Philippe Matray</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <PublisherDisplayName>pbalut</PublisherDisplayName>
+    <Logo>C:\Users\pbalut\Source\GitHub\RealTimeHomeController\Pbalut.RealTimeHomeController.HardwareController\Assets\NewStoreLogo.png</Logo>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
@@ -15,10 +15,13 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="RealTimeHomeController.App">
-      <uap:VisualElements DisplayName="Real Time Home Controller" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Real Time Home Controller" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+      <uap:VisualElements DisplayName="Real Time Home Controller" Square150x150Logo="C:\Users\pbalut\Source\GitHub\RealTimeHomeController\Pbalut.RealTimeHomeController.HardwareController\Assets\Square150x150Logo.png" Square44x44Logo="C:\Users\pbalut\Source\GitHub\RealTimeHomeController\Pbalut.RealTimeHomeController.HardwareController\Assets\Square44x44Logo.png" Description="Real Time Home Controller" BackgroundColor="#8ec63f">
+        <uap:DefaultTile Wide310x150Logo="C:\Users\pbalut\Source\GitHub\RealTimeHomeController\Pbalut.RealTimeHomeController.HardwareController\Assets\Wide310x150Logo.png" Square310x310Logo="C:\Users\pbalut\Source\GitHub\RealTimeHomeController\Pbalut.RealTimeHomeController.HardwareController\Assets\Square310x310Logo.png" Square71x71Logo="C:\Users\pbalut\Source\GitHub\RealTimeHomeController\Pbalut.RealTimeHomeController.HardwareController\Assets\Square71x71Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="C:\Users\pbalut\Source\GitHub\RealTimeHomeController\Pbalut.RealTimeHomeController.HardwareController\Assets\SplashScreen.png" BackgroundColor="#8ec63f" />
       </uap:VisualElements>
     </Application>
   </Applications>

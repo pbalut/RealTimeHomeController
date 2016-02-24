@@ -79,6 +79,7 @@
     <Compile Include="Models\LightEventInformation.cs" />
     <Compile Include="Models\Lights\LightChangeStateError.cs" />
     <Compile Include="Models\Lights\LightClientRequest.cs" />
+    <Compile Include="Models\Lights\LightServerRequest.cs" />
     <Compile Include="Models\Lights\LightServerResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

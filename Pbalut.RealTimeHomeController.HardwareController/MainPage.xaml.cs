@@ -7,32 +7,25 @@ using Pbalut.RealTimeHomeController.HardwareController.Engines;
 using Pbalut.RealTimeHomeController.HardwareController.HardwareControllers;
 using Pbalut.RealTimeHomeController.HardwareController.HubProxy;
 using Pbalut.RealTimeHomeController.HardwareController.Listeners;
+using Pbalut.RealTimeHomeController.Shared.Enums;
+using Pbalut.RealTimeHomeController.Shared.Models.Lights;
 
 namespace Pbalut.RealTimeHomeController.HardwareController
 {
     public sealed partial class MainPage : Page
     {
-        #region Listeners
-        private LightListener LightListner { get; set; }
-        #endregion
-
-        #region Engines
-        private LightEngine LightEngine { get; set; }
-        #endregion
-
         public MainPage()
         {
             this.InitializeComponent();
-            LightEngine = LightEngine.GetLightEngine();
             RelayController.InitializeRelayPins();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             var lightHubProxy = new LightHubProxy();
-            lightHubProxy.LightClientRequest += async (p, q) =>
+            lightHubProxy.RequestToServerEvent += async (p, q) =>
             {
-                await LightClientRequestEvent(q);
+                await AA(q);
             };
             await lightHubProxy.Start();
         }
@@ -41,8 +34,6 @@ namespace Pbalut.RealTimeHomeController.HardwareController
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                //    LightEngine.Field = q.State.ToString();
-                //    var t = 2;
                 //    //GPIO
                 //    RelayController.TurnOffLight(ELightType.PeterRoomMainLight);
                 //    RelayController.TurnOnLight(ELightType.PeterRoomMainLight);
@@ -50,6 +41,21 @@ namespace Pbalut.RealTimeHomeController.HardwareController
 
                 //    //send notification
             });
+        }
+
+        private async Task AA(LightServerRequest request)
+        {
+            switch (request.State)
+            {
+                case ELightState.TurnOn:
+                    RelayController.TurnOnLight(ELightType.PeterRoomMainLight);
+                    break;
+                case ELightState.TurnOff:
+                    RelayController.TurnOffLight(ELightType.PeterRoomMainLight);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
     public class LightHubProxy : HubProxyBase
     {
         public event EventHandler<LightServerResponse> LightInformationReceived;
+        public event EventHandler<LightClientRequest> LightClientRequest;
+        public event EventHandler<LightChangeStateError> LightError;
 
         public LightHubProxy()
             : base(EHub.Light.GetHubName())
@@ -28,6 +30,10 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
             await Init();
             HubProxy.On<LightServerResponse>(EHubMethod.LightInformAboutChangedState.GetClientName(),
                 information => { LightInformationReceived?.Invoke(this, information); });
+            HubProxy.On<LightClientRequest>(EHubMethod.LightChangeStateClientRequest.GetClientName(),
+                clientRequest => { LightClientRequest?.Invoke(this, clientRequest); });
+            HubProxy.On<LightChangeStateError>(EHubMethod.LightInformAboutErrorOccuredWhileChangingState.GetClientName(),
+    error => { LightError?.Invoke(this, error); });
             await JoinToGroup();
             SetMessengesReciver();
         }
@@ -52,6 +58,16 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
             {
                 await AA(q);
             };
+
+            LightClientRequest += async (p, q) =>
+            {
+                await AA1(q);
+            };
+
+            LightError += async (p, q) =>
+            {
+                await AA2(q);
+            };
         }
 
         private void SetMessengesReciver()
@@ -68,7 +84,7 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
             {
                 if (HubConnection.State == ConnectionState.Connected)
                 {
-                    await HubProxy.Invoke(EHubMethod.LightChangeState.GetServerName(), light);
+                    await HubProxy.Invoke(EHubMethod.LightChangeStateClientRequest.GetServerName(), light);
                 }
             }
             catch (Exception ex)
@@ -80,6 +96,16 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
         private async Task AA(LightServerResponse response)
         {
             
+        }
+
+        private async Task AA1(LightClientRequest response)
+        {
+
+        }
+
+        private async Task AA2(LightChangeStateError response)
+        {
+
         }
     }
 }

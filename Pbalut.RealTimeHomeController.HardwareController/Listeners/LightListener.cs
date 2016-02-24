@@ -18,8 +18,8 @@ namespace Pbalut.RealTimeHomeController.HardwareController.Listeners
         public async Task Init()
         {
             var hubConnection = new HubConnection(EndPoint.HubUrl);
-            var hubProxy = hubConnection.CreateHubProxy(EHubMethod.LightChangeState.GetHubName());
-            hubProxy.On<Light>(EHubMethod.LightChangeState.GetClientName(), data =>
+            var hubProxy = hubConnection.CreateHubProxy(EHubMethod.LightChangeStateClientRequest.GetHubName());
+            hubProxy.On<Light>(EHubMethod.LightChangeStateClientRequest.GetClientName(), data =>
             {
                 LightDataReceived?.Invoke(this, data);
             });
