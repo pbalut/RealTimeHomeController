@@ -1,4 +1,5 @@
-﻿using Windows.Devices.Gpio;
+﻿using System.Linq;
+using Windows.Devices.Gpio;
 using Pbalut.IoT.Commons;
 using Pbalut.RealTimeHomeController.Shared.Enums;
 using Pbalut.RealTimeHomeController.Shared.Enums.Extensions;
@@ -10,12 +11,9 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HardwareControllers
     {
         public static void InitializeRelayPins()
         {
-            foreach (var light in EnumUtil.GetEnumValues<ELightType>())
+            foreach (var light in EnumUtil.GetEnumValues<ELightType>().Where(light => Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Devices.Gpio.GpioPinValue")))
             {
-                if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Devices.Gpio.GpioPinValue"))
-                {
-                    Gpio.Controller.AddPin(light.GetGpioPin(), GpioPinValue.Low, GpioPinDriveMode.Output);
-                }
+                Gpio.Controller.AddPin(light.GetGpioPin(), GpioPinValue.Low, GpioPinDriveMode.Output);
             }
         }
 
@@ -27,6 +25,11 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HardwareControllers
         public static void TurnOffLight(ELightType light)
         {
             Gpio.Controller.Pin(light.GetGpioPin()).Write(GpioPinValue.Low);
+        }
+
+        public static void ChangeLightState(ELightType light, ELightState state)
+        {
+            Gpio.Controller.Pin(light.GetGpioPin()).Write(state == ELightState.TurnOn ? GpioPinValue.High : GpioPinValue.Low);
         }
     }
 }

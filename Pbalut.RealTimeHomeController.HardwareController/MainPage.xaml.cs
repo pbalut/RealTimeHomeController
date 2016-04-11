@@ -25,7 +25,7 @@ namespace Pbalut.RealTimeHomeController.HardwareController
             var lightHubProxy = new LightHubProxy();
             lightHubProxy.RequestToServerEvent += async (p, q) =>
             {
-                await AA(q);
+                await lightHubProxy.Execute(q);
             };
             await lightHubProxy.Start();
         }
@@ -41,21 +41,6 @@ namespace Pbalut.RealTimeHomeController.HardwareController
 
                 //    //send notification
             });
-        }
-
-        private async Task AA(LightServerRequest request)
-        {
-            switch (request.State)
-            {
-                case ELightState.TurnOn:
-                    RelayController.TurnOnLight(ELightType.PeterRoomMainLight);
-                    break;
-                case ELightState.TurnOff:
-                    RelayController.TurnOffLight(ELightType.PeterRoomMainLight);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
     }
 }

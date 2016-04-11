@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Transports;
+using Pbalut.RealTimeHomeController.HardwareController.HardwareControllers;
 using Pbalut.RealTimeHomeController.Shared.AppData;
+using Pbalut.RealTimeHomeController.Shared.Enums;
 using Pbalut.RealTimeHomeController.Shared.Enums.Extensions;
 using Pbalut.RealTimeHomeController.Shared.Enums.Groups;
 using Pbalut.RealTimeHomeController.Shared.Enums.Hubs;
@@ -24,7 +26,6 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HubProxy
 
         public async Task Start()
         {
-            //SetListeaners();
             await Init();
             HubProxy.On<LightServerRequest>(EHubMethod.LightChangeStateServerRequest.GetClientName(),
                 clientRequest => { RequestToServerEvent?.Invoke(this, clientRequest); });
@@ -45,17 +46,17 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HubProxy
             }
         }
 
-        private void SetListeaners()
+        public async Task Execute(LightServerRequest request)
         {
-            RequestToServerEvent += async (p, q) =>
+            try
             {
-                await AA(q);
-            };
-        }
+                RelayController.ChangeLightState(request.Type, request.State);
 
-        private async Task AA(LightServerRequest request)
-        {
-
+            }
+            catch (Exception ex)
+            {
+                //TODO
+            }
         }
     }
 }
