@@ -55,6 +55,7 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
         {
             try
             {
+                Logger.Log(LogLevel.Trace, $"InformAboutErrorOccuredWhileChangingState | {error}");
                 Clients.Group(EGroup.Client.GetGroupName()).LightInformAboutErrorOccuredWhileChangingState(error);
             }
             catch (Exception ex)

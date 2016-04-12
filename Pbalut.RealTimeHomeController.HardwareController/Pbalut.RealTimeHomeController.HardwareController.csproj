@@ -95,10 +95,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Engines\LightEngine.cs" />
     <Compile Include="HardwareControllers\RelayController.cs" />
     <Compile Include="HubProxy\LightHubProxy.cs" />
-    <Compile Include="Listeners\LightListener.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
