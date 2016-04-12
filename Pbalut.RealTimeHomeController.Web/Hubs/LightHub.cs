@@ -15,12 +15,13 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
 
         public async Task JoinGroup(EGroup group)
         {
-            Logger.Log(LogLevel.Trace, $"Group name: {group.GetGroupName()}, connection id: {Context.ConnectionId}");
+            Logger.Log(LogLevel.Trace, $"Join group | Group name: {group.GetGroupName()}, connection id: {Context.ConnectionId}");
             await Groups.Add(Context.ConnectionId, group.GetGroupName());
         }
 
         public async Task LeaveGroup(EGroup group)
         {
+            Logger.Log(LogLevel.Trace, $"Leave group | Group name: {group.GetGroupName()}, connection id: {Context.ConnectionId}");
             await Groups.Remove(Context.ConnectionId, group.GetGroupName());
         }
 
@@ -28,7 +29,7 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
         {
             try
             {
-                Logger.Log(LogLevel.Trace, $"| REQUEST TO CHANGE STATE | {requestFromClient}");
+                Logger.Log(LogLevel.Trace, $"ChangeStateRequestToServer | {requestFromClient}");
                 Clients.Group(EGroup.Server.GetGroupName()).LightChangeStateRequestToHardwareController(new LightServerRequest() { State = requestFromClient.State});
             }
             catch (Exception ex)
@@ -41,6 +42,7 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
         {
             try
             {
+                Logger.Log(LogLevel.Trace, $"InformAboutChangedState | {serverResponse}");
                 Clients.Group(EGroup.Client.GetGroupName()).LightInformAboutChangedState(serverResponse);
             }
             catch (Exception ex)

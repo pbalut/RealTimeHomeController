@@ -19,7 +19,7 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HardwareControllers
 
         public static void TurnOnLight(ELightType light)
         {
-            Gpio.Controller.Pin(light.GetGpioPin()).Write(GpioPinValue.High);
+           Gpio.Controller.Pin(light.GetGpioPin()).Write(GpioPinValue.High);
         }
 
         public static void TurnOffLight(ELightType light)
@@ -30,6 +30,15 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HardwareControllers
         public static void ChangeLightState(ELightType light, ELightState state)
         {
             Gpio.Controller.Pin(light.GetGpioPin()).Write(state == ELightState.TurnOn ? GpioPinValue.High : GpioPinValue.Low);
+        }
+
+        public static ELightState GetLightState(ELightType light)
+        {
+            return Gpio.Controller.Pin(light.GetGpioPin()).Read() == GpioPinValue.High
+                ? ELightState.TurnOn
+                : ELightState.TurnOff;
+
+
         }
     }
 }

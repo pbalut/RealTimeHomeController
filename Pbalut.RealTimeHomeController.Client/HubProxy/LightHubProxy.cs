@@ -54,9 +54,9 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
 
         private void SetListeaners()
         {
-            LightInformationReceived += async (p, q) =>
+            LightInformationReceived += (p, q) =>
             {
-                await AA(q);
+                ShowLightInformationReceivedFromServer(q);
             };
 
             LightClientRequest += async (p, q) =>
@@ -93,9 +93,9 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
             }
         }
 
-        private async Task AA(LightServerResponse response)
+        private void ShowLightInformationReceivedFromServer(LightServerResponse response)
         {
-            
+            Messenger.Default.Send(new NotificationMessage<LightServerResponse>(response, string.Empty));
         }
 
         private async Task AA1(LightClientRequest response)

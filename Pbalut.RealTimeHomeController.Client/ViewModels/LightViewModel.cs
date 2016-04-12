@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Views;
 using Pbalut.RealTimeHomeController.Client.Helpers;
 using Pbalut.RealTimeHomeController.Client.Interfaces;
@@ -9,6 +11,7 @@ using Pbalut.RealTimeHomeController.Client.Models;
 using Pbalut.RealTimeHomeController.Client.ViewModels.Base;
 using Pbalut.RealTimeHomeController.Shared.Enums;
 using Pbalut.RealTimeHomeController.Shared.Enums.Extensions;
+using Pbalut.RealTimeHomeController.Shared.Models.Lights;
 
 namespace Pbalut.RealTimeHomeController.Client.ViewModels
 {
@@ -21,6 +24,10 @@ namespace Pbalut.RealTimeHomeController.Client.ViewModels
             base(navigationService)
         {
             SetRelayDevices();
+            Messenger.Default.Register<NotificationMessage<LightServerResponse>>(this,  message =>
+            {
+                SetStateFromServerResponse(message.Content);
+            });
         }
 
         public ObservableCollection<RelayDevice> RelayDevices
@@ -51,6 +58,16 @@ namespace Pbalut.RealTimeHomeController.Client.ViewModels
                         Icon = IconHelper.GetLightIconUri(light),
                         Type = light
                     }).ToList());
+        }
+
+        private async void SetStateFromServerResponse(LightServerResponse response)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    RelayDevices.Single(i => i.Type == response.Type).IsOn = response.StateTo == ELightState.TurnOn;
+                }
+            );
         }
     }
 }

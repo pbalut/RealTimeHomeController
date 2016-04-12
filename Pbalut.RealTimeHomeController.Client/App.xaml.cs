@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
+using Windows.Networking.Connectivity;
 using Windows.Phone.UI.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -33,7 +35,7 @@ namespace Pbalut.RealTimeHomeController.Client
                 //this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-
+            
             var shell = Window.Current.Content as Shell;
 
             // Do not repeat app initialization when the Window already has content,
