@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pbalut.RealTimeHomeController.Shared.Models.Lights
+﻿namespace Pbalut.RealTimeHomeController.Shared.Models.Lights
 {
-    public class LightChangeStateError
+    public class LightChangeStateError : LightServerResponse
     {
+        public string ErrorMessage { get; set; }
+        public string UserConnectionId { get; set; }
     }
 }

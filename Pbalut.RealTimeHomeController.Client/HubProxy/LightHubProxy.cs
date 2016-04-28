@@ -16,7 +16,6 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
     public class LightHubProxy : HubProxyBase
     {
         public event EventHandler<LightServerResponse> LightInformationReceived;
-        public event EventHandler<LightClientRequest> LightClientRequest;
         public event EventHandler<LightChangeStateError> LightError;
 
         public LightHubProxy()
@@ -30,10 +29,8 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
             await Init();
             HubProxy.On<LightServerResponse>(EHubMethod.LightInformAboutChangedState.GetClientName(),
                 information => { LightInformationReceived?.Invoke(this, information); });
-            HubProxy.On<LightClientRequest>(EHubMethod.LightChangeStateClientRequest.GetClientName(),
-                clientRequest => { LightClientRequest?.Invoke(this, clientRequest); });
             HubProxy.On<LightChangeStateError>(EHubMethod.LightInformAboutErrorOccuredWhileChangingState.GetClientName(),
-    error => { LightError?.Invoke(this, error); });
+                error => { LightError?.Invoke(this, error); });
             await JoinToGroup();
             SetMessengesReciver();
         }
@@ -59,14 +56,9 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
                 ShowLightInformationReceivedFromServer(q);
             };
 
-            LightClientRequest += async (p, q) =>
+            LightError += (p, q) =>
             {
-                await AA1(q);
-            };
-
-            LightError += async (p, q) =>
-            {
-                await AA2(q);
+                ShowLightInformationReceivedFromServer(q);
             };
         }
 
@@ -98,14 +90,9 @@ namespace Pbalut.RealTimeHomeController.Client.HubProxy
             Messenger.Default.Send(new NotificationMessage<LightServerResponse>(response, string.Empty));
         }
 
-        private async Task AA1(LightClientRequest response)
+        private void ShowLightInformationReceivedFromServer(LightChangeStateError error)
         {
-
-        }
-
-        private async Task AA2(LightChangeStateError response)
-        {
-
+            Messenger.Default.Send(new NotificationMessage<LightChangeStateError>(error, string.Empty));
         }
     }
 }

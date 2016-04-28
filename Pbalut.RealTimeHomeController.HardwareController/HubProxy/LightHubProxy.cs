@@ -57,9 +57,10 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HubProxy
 
         public async Task Execute(LightServerRequest request)
         {
+            var currentState = RelayController.GetLightState(request.Type);
             try
             {
-                var currentState = RelayController.GetLightState(request.Type);
+                Convert.ToDouble("aa");
                 RelayController.ChangeLightState(request.Type, request.State);
                 await InformAboutChangedState(new LightServerResponse()
                 {
@@ -75,6 +76,18 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HubProxy
             catch (Exception ex)
             {
                 //TODO
+                await InformAboutErrorOccuredWhileChangingState(new LightChangeStateError()
+                {
+                    Type = request.Type,
+                    DateTime = DateTime.Now,
+                    ServerName = NetworkInformation.GetHostNames().FirstOrDefault().DisplayName,
+                    Source = request.Source,
+                    UserName = request.UserName,
+                    StateFrom = currentState,
+                    StateTo = request.State,
+                    UserConnectionId = request.UserConnectionId,
+                    ErrorMessage = "Error occured"
+                });
             }
         }
 
@@ -92,5 +105,22 @@ namespace Pbalut.RealTimeHomeController.HardwareController.HubProxy
                 //TODO            
             }
         }
+        
+        private async Task InformAboutErrorOccuredWhileChangingState(LightChangeStateError error)
+        {
+            try
+            {
+                if (HubConnection.State == ConnectionState.Connected)
+                {
+                    await HubProxy.Invoke(EHubMethod.LightInformAboutErrorOccuredWhileChangingState.GetServerName(), error);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO            
+            }
+        }
+
+
     }
 }

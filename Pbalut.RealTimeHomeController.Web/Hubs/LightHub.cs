@@ -30,7 +30,14 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
             try
             {
                 Logger.Log(LogLevel.Trace, $"ChangeStateRequestToServer | {requestFromClient}");
-                Clients.Group(EGroup.Server.GetGroupName()).LightChangeStateRequestToHardwareController(new LightServerRequest() { State = requestFromClient.State});
+                Clients.Group(EGroup.Server.GetGroupName()).LightChangeStateRequestToHardwareController(new LightServerRequest()
+                {
+                    State = requestFromClient.State,
+                    Type = requestFromClient.Type,
+                    Source = requestFromClient.Source,
+                    UserName = requestFromClient.UserName,
+                    UserConnectionId = Context.ConnectionId
+                });
             }
             catch (Exception ex)
             {
@@ -56,7 +63,7 @@ namespace Pbalut.RealTimeHomeController.Web.Hubs
             try
             {
                 Logger.Log(LogLevel.Trace, $"InformAboutErrorOccuredWhileChangingState | {error}");
-                Clients.Group(EGroup.Client.GetGroupName()).LightInformAboutErrorOccuredWhileChangingState(error);
+                Clients.Client(error.UserConnectionId).LightInformAboutErrorOccuredWhileChangingState(error);
             }
             catch (Exception ex)
             {

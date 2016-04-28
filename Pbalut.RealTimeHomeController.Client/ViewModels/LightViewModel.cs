@@ -17,7 +17,6 @@ namespace Pbalut.RealTimeHomeController.Client.ViewModels
 {
     public class LightViewModel : BaseViewModel, IViewModel
     {
-        private Uri _iconTest;
         private ObservableCollection<RelayDevice> _relayDevices;
 
         public LightViewModel(INavigationService navigationService) :
@@ -25,6 +24,10 @@ namespace Pbalut.RealTimeHomeController.Client.ViewModels
         {
             SetRelayDevices();
             Messenger.Default.Register<NotificationMessage<LightServerResponse>>(this,  message =>
+            {
+                SetStateFromServerResponse(message.Content);
+            });
+            Messenger.Default.Register<NotificationMessage<LightChangeStateError>>(this, message =>
             {
                 SetStateFromServerResponse(message.Content);
             });
@@ -66,6 +69,17 @@ namespace Pbalut.RealTimeHomeController.Client.ViewModels
                 () =>
                 {
                     RelayDevices.Single(i => i.Type == response.Type).IsOn = response.StateTo == ELightState.TurnOn;
+                }
+            );
+        }
+
+        private async void ShowError(LightChangeStateError response)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                async () =>
+                {
+                    var dialog = new Windows.UI.Popups.MessageDialog("Error");
+                    await dialog.ShowAsync();
                 }
             );
         }

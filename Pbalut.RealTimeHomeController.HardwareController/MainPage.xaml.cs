@@ -3,13 +3,8 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Pbalut.RealTimeHomeController.HardwareController.Engines;
 using Pbalut.RealTimeHomeController.HardwareController.HardwareControllers;
 using Pbalut.RealTimeHomeController.HardwareController.HubProxy;
-using Pbalut.RealTimeHomeController.HardwareController.Listeners;
-using Pbalut.RealTimeHomeController.Shared.Enums;
-using Pbalut.RealTimeHomeController.Shared.Models.Lights;
-
 namespace Pbalut.RealTimeHomeController.HardwareController
 {
     public sealed partial class MainPage : Page

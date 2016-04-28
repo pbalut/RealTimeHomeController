@@ -8,6 +8,7 @@ namespace Pbalut.RealTimeHomeController.Shared.Models.Lights
         public ELightType Type { get; set; }
         public string UserName { get; set; }
         public EEventSource Source { get; set; }
+        public string UserConnectionId { get; set; }
 
         public override string ToString() => State.ToString();
     }
